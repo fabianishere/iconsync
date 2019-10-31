@@ -2,7 +2,14 @@ import Foundation
 import Commander
 
 /// The version of the program.
-let version = "1.0.0"
+let version = "1.1.0"
+
+/// The suite name of the application
+let suiteName = "nl.fabianishere.iconsync"
+
+/// Obtain the default theme location
+let defaultThemeLocation = UserDefaults(suiteName: suiteName)?.url(forKey: "theme") 
+        ?? URL(fileURLWithPath: ("~/.theme" as NSString).expandingTildeInPath)
 
 extension URL : ArgumentConvertible {
     public init(parser: ArgumentParser) throws {
@@ -17,7 +24,7 @@ extension URL : ArgumentConvertible {
 command(
         Flag("version", flag: "v", description: "Show the version of this program"),
         Flag("recursive", flag: "r", description: "Recursively iterate the targets"),
-        Option<URL>("theme", default: URL(fileURLWithPath: ("~/.theme" as NSString).expandingTildeInPath), flag: "t", description: "The icon theme to apply"),
+        Option<URL>("theme", default: defaultThemeLocation, flag: "t", description: "The icon theme to apply"),
         Argument<[URL]>("target", description: "The file(s) to sync the icon theme for")
 ) { version, recursive, themeUrl, targets in
     if (version) {

@@ -1,6 +1,6 @@
 iconsync
 ========
-A tool to sync your icon theme on macOS.
+A tool to sync the icons of your applications to a custom icon theme on macOS.
 
 ## Usage
 ```
@@ -18,7 +18,20 @@ Options:
 ```
 
 `iconsync` will identify each icon (in `.icns` or `.png`) in your theme directory and will apply
-this icon to all macOS applications in the specified target directories.
+this icon to all macOS applications with the same name in the specified target directories.
+
+#### Updating default theme
+You may update the directory of the default theme using `defaults`:
+```shell
+$ defaults write nl.fabianishere.iconsync theme "<PATH>"
+```
+By default, `iconsync` assumes the theme is located at `~/.theme`.
+
+## Install
+The module is available in my personal Homebrew [repository](https://github.com/fabianishere/homebrew-personal). Use the following command to install it:
+```shell
+$ brew install fabianishere/personal/iconsync
+```
 
 ## Building
 The module is built using [Swift Package Manager](https://swift.org/package-manager/). 
