@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        target: [iconsyncd]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: brew install swiftformat
+      - name: Build
+        run: xcodebuild -workspace iconsync.xcodeproj/project.xcworkspace -scheme ${{ matrix.target }}
+      - name: Lint
+        run:  swiftformat --lint .
+
+
